@@ -55,7 +55,7 @@ Here is what the final output of the pipeline looks like after drawing bounding 
 [Final Out](./output_images/final_output.png)
 
 ###Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-[Project Video](./project_video_out.mp4)
+[Project Video](./final_project_out.mp4)
 
 ###Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 I used the heatmap method for combining overlapping bounding boxes and removing false positives. To create the heatmap I defined a function `add_heat()` which takes in a zeroed image array and a list of all the detected bounding boxes. The function adds +1 to every pixel in each of the detected bounding boxes. Then I use `apply_threshold()` to zero out the pixels that do not meet the threshold which are presumably the false positives.
@@ -65,6 +65,8 @@ I take advantage of scipy's `labels()` function to easily transform the heatmap 
 ###Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
 The shadows projected from the tress onto the road proved once again to be a challenge for this project. My first implementations produced many false positives along that section of road. 
 
+It was a challenge finding a balance between eliminating false positives and identifiying the vehicles in every frame. I found those to two objective to be inversely proportional.  
+
 My implementation is inefficent at extracting HOG features. To improve it, I could create the gradient just once for the entire region of interest, set the param `feature_vec=False`, and then subsample that array for each sliding window. However, I did not want to invest the time to implement this solution.
 
-My implementation is also could also improve by averaging the bounding boxes over time or
+I think the best place for improvement in this implementation would be in a "smoothing" algorithm for the bounding boxes. Perhaps something, that averages the position of the boxes over n frames. I also probably could have tuned my heatmap threshold just a bit higher. 
