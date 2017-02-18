@@ -55,7 +55,7 @@ Here is what the final output of the pipeline looks like after drawing bounding 
 [Final Out](./output_images/final_output.png)
 
 ###Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-[Project Video](./project_video_out.mp4)
+[Project Video](https://youtu.be/dsH-FK5Yog4)
 
 ###Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 I used the heatmap method for combining overlapping bounding boxes and removing false positives. To create the heatmap I defined a function `add_heat()` which takes in a zeroed image array and a list of all the detected bounding boxes. The function adds +1 to every pixel in each of the detected bounding boxes. Then I use `apply_threshold()` to zero out the pixels that do not meet the threshold which are presumably the false positives.
