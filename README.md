@@ -1,5 +1,4 @@
 # Vehicle Detection
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 The goals / steps of this project are the following:
 
@@ -17,7 +16,7 @@ I used the function `get_hog_features()` to extract the HOG features from the tr
 * Looked for params that resulted in highest test acuracy without much sacrifice to prediction/training time
 
 HOG Visualization
-[Project Video](./output_images/hog_viz.png)
+[HOG Viz](./output_images/hog_viz.png)
 
 ###Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
@@ -44,16 +43,16 @@ I started with a basic imlementation of `search_image()` and tested it with my d
 
 ###Show some examples of test images to demonstrate how your pipeline is working. How did you optimize the performance of your classifier?
 Here is the basic result from `slide_window()` with no params
-[Project Video](./output_images/sliding_window_no_params.png)
+[sliding window no params](./output_images/sliding_window_no_params.png)
 
 Here is some vehicle detection after using multiscale sliding windows. The image below shows the pipeline not producing any false positives
-[Project Video](./output_images/detection_with_overlap.png)
+[detection with overlap](./output_images/detection_with_overlap.png)
 
 Here is a heatmap projection of overlapping bounding boxes.
-[Project Video](./output_images/heatmap.png)
+[Heatmap](./output_images/heatmap.png)
 
 Here is what the final output of the pipeline looks like after drawing bounding boxes on the labeled image.
-[Project Video](./output_images/final_output.png)
+[Final Out](./output_images/final_output.png)
 
 ###Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
 [Project Video](./project_video_out.mp4)
