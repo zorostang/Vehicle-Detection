@@ -56,7 +56,7 @@ Here is what the final output of the pipeline looks like after drawing bounding 
 
 ###Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
 
-[Project Video](https://youtu.be/dsH-FK5Yog4)
+[Project Video](https://youtu.be/J3QzXxjvbsY)
 
 ###Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 I used the heatmap method for combining overlapping bounding boxes and removing false positives. To create the heatmap I defined a function `add_heat()` which takes in a zeroed image array and a list of all the detected bounding boxes. The function adds +1 to every pixel in each of the detected bounding boxes. Then I use `apply_threshold()` to zero out the pixels that do not meet the threshold which are presumably the false positives.
@@ -64,10 +64,17 @@ I used the heatmap method for combining overlapping bounding boxes and removing 
 I take advantage of scipy's `labels()` function to easily transform the heatmap into a labeled map. This allows me to remove overlapping bounding boxes. I defined a function called `draw_labeled_bboxes()` which takes in the labeled map and draws bounding boxes along the min/max x and y positions of the nonzero pixels in the labeled map.
 
 ###Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
-The shadows projected from the tress onto the road proved once again to be a challenge for this project. My first implementations produced many false positives along that section of road. 
+There were two main challenges with the SVM vehicle detection approach:
+* Determining the right training features and  training parameters to use for the training the SVM.
 
-It was a challenge finding a balance between eliminating false positives and identifiying the vehicles in every frame. I found those to two objective to be inversely proportional.  
+* Finding the right balance in total number of windows and window scales to use for feature extraction during prediction.
 
-My implementation is inefficent at extracting HOG features. To improve it, I could create the gradient just once for the entire region of interest, set the param `feature_vec=False`, and then subsample that array for each sliding window. However, I did not want to invest the time to implement this solution.
+Below are some further reflections:
 
-I think the best place for improvement in this implementation would be in a "smoothing" algorithm for the bounding boxes. Perhaps something, that averages the position of the boxes over n frames. I also probably could have tuned my heatmap threshold just a bit higher. 
+* The shadows projected from the tress onto the road proved once again to be a challenge for this project. My first implementations produced many false positives along that section of road. I determied that I needed to retrain the SVM with different parameters
+
+* The classification time is slow in the current implementation. To improve it, I could try fine tuning the scales, number, and locations of search windows.
+
+* I could implement a "smoothing" algorithm for the bounding boxes. Perhaps something, that averages the position of the boxes over n frames.
+
+* I wonder if there is another algorithm out there for creating a bounding box instead of the heatmap/labels approach.
